@@ -12,10 +12,12 @@ class Sudoku{
 		void transform();
 		void change();
 		void printOut(int* su);
-		void possibleNum(int* su);
-		void checkRow(int* su);
-		void checkCol(int* su);
-		void checkSqr(int* su);
+		int findZero(int* su);
+		int* checkRow(int i, int* su, int* poss);
+		int* checkCol(int i, int* su, int* pos);
+		int* checkSqr(int i, int* su, int* pos);
+		int* transPos(int* Pos, int* possible);
+		void fillIn(int i, int* su, int* pos);
 	
 	private:
 		int i, j, k, l;
@@ -29,5 +31,5 @@ class Sudoku{
 		int* B;
 		int* C;
 		int Map[81];
-		int pos[81][10];
+		int pos[9];
 };

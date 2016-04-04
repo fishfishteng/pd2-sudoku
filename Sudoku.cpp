@@ -186,47 +186,120 @@ void Sudoku::change(){
 }
 
 void Sudoku::solve(){
-		possibleNum(su);
+	int pos[9] = {0};
+	int possibleNum[9] = {0};
+	int* poss = pos; 
+	int* possible = possibleNum;
+	int* Pos;
+	i = findZero(su);
+	cout<<i<<endl;
+	Pos = checkRow(i, su, poss);
+	Pos = checkCol(i, su, Pos);
+	Pos = checkSqr(i, su, Pos);
+	Pos = transPos(Pos, possible);
+	for(k = 0; k < 9; k++){
+		cout<<Pos[k]<<" ";
+	}
+	cout<<endl;
+	fillIn(i, su, Pos);
 }
 
-void Sudoku::possibleNum(int* su){
-	for(i = 0; i < 81; i++){
-		for(j = 0; j < 9; j++){
-			pos[i][j] = j + 1;
+int Sudoku::findZero(int* su){
+	for(i = 0; i < 81; i++)
+		if(su[i] == 0)
+			return i;
+	return -1;
+}
+
+int* Sudoku::checkRow(int i, int* su, int* poss){
+	int k = 0;
+	int row;
+	row = (i/9)*9;
+	for(j = 0; j < 9; j++){
+		if(su[row + j] != 0){
+			poss[k] = su[row + j];
+			k++;
 		}
 	}
-	checkRow(su);
-//	checkCol(su);
-//	checkSqr(su);
+	cout<<"k="<<k<<endl;
+	return poss;
 }
 
-void Sudoku::checkRow(int* su){
-	for(i = 0; i < 81; i += 9){
-		for(j = 0; j < 9; j++){
-			if(su[i+j] == 0){
-				for(k = 0; k < 9; k++){
-					if(su[i+k] != 0)
-						pos[i+j][su[i+k] - 1] = 0;
-						for(l = 0; l < 9; l++){
-							pos[su[i+k]][l] = 0;
+int* Sudoku::checkCol(int i, int* su, int* pos){
+	int col;
+	col = i%9;
+	for(j = 0; j < 73; j+=9){
+		if(su[col + j] != 0){
+			for(l = 0; l < 9; l++){
+				if(pos[l] == su[col + j])
+					break;
+				else{
+					for(k = 0; k < 9; k++){
+						if(pos[k] == 0){
+							pos[k] = su[col + j];
+							break;
 						}
+					}
+					break;
 				}
 			}
 		}
 	}
-	for(i = 0; i < 81; i++){
-		for(j = 0; j < 9; j++){
-			cout<<pos[i][j]<<" ";
-			
+	return pos;
+}
+
+int* Sudoku::checkSqr(int i, int*su, int* pos){
+	int sqr, m;
+	sqr = (i/27)*27 + ((i-9*(i/9))/3)*3;
+	cout<<"i="<<i<<endl<<"sqr="<<sqr<<endl;
+	for(m = 0; m < 3; m++){
+		for(j = 0; j < 3; j++){
+			if(su[sqr + j] != 0){
+				for(l = 0; l < 9; l++){
+					if(pos[l] == su[sqr + j]){
+						break;
+					}
+				}
+				if(l == 9){
+					for(k = 0; k < 9; k++){
+						if(pos[k] == 0){
+							pos[k] = su[sqr + j];
+							break;
+						}
+					}
+					break;
+				}
+			}
 		}
-		cout<<endl;
+		cout<<"sqr="<<sqr<<endl;
+		sqr+=9;
 	}
+	return pos;
 }
 
-void Sudoku::checkCol(int* su){
-
+int* Sudoku::transPos(int* Pos, int* possible){
+	k = 0;
+	for(i = 1; i < 10; i++){
+		for(j = 0; j < 9; j++){
+			if(i == Pos[j])
+				break;
+		}
+		if(j == 9){
+			possible[k] = i;
+			k++;
+		}
+	}
+	return possible;
 }
 
-void Sudoku::checkSqr(int* su){
-
+void Sudoku::fillIn(int i, int* su, int* Pos){
+	int j = 0;
+	while(Pos[j] == 0){
+		j++;
+		if(j == 9)
+			return;
+	}
+	su[i] = Pos[j];
+	Pos[j] = 0;
 }
+
