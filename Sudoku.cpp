@@ -155,36 +155,19 @@ void Sudoku::flip(int n){
 }
 
 void Sudoku::transform(){
-	readIn();
-	cout<<"Origin:"<<endl;
-	printOut(su);
-	cout<<endl;
 	change();
 	printOut(su);
 }
 
 void Sudoku::change(){
 	srand(time(NULL));
-	cout<<"Change number:"<<endl;
 	changeNum(rand()%9+1, rand()%9+1);
-	printOut(su);
-	cout<<endl;
-	cout<<"Change row:"<<endl;
 	changeRow(rand()%3, rand()%3);
-	printOut(su);
-	cout<<endl;
-	cout<<"Change column:"<<endl;
 	changeCol(rand()%3, rand()%3);
-	printOut(su);
-	cout<<endl;
-	cout<<"Rotate:"<<endl;
 	rotate(rand()%101);
-	printOut(su);
-	cout<<endl;
-	cout<<"Flip:"<<endl;
 	flip(rand()%2);
 }
-
+/*
 void Sudoku::solve(){
 	int pos[9] = {0};
 	int possibleNum[9] = {0};
@@ -301,5 +284,8 @@ void Sudoku::fillIn(int i, int* su, int* Pos){
 	}
 	su[i] = Pos[j];
 	Pos[j] = 0;
+}*/
+void Sudoku::solve(){
+	int poss[81][9] = {0};
+	for(i = 0; i < 81; i++)	
 }
-
