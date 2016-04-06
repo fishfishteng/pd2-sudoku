@@ -377,6 +377,16 @@ void Sudoku::solve(){
 		if(su[i] == 0)
 			zero++;
 	}
+	if(zero == 0){
+		cout<<"1"<<endl;
+		for(i = 0; i < 9; i++){
+			for(j = 0; j < 9; j++){
+				cout<<Sudo[i][j]<<" ";
+			}
+				cout<<endl;
+		}
+		exit(0);
+	}
 //	cout<<"zero="<<zero<<endl;
 	int zerosite[zero];
 	int j = 0;
