@@ -22,7 +22,7 @@ void Sudoku::readIn(){
 	}
 }
 
-void Sudoku::printOut(int* su){
+void Sudoku::printOut(int *su){
 	for(i = 0; i < 81; i++){
 		cout<<su[i]<<" ";
 		if(i%9 == 8)
@@ -104,20 +104,57 @@ void Sudoku::changeCol(int a, int b){
 	}
 }
 void Sudoku::rotate(int n){
-	for(i = 0; i < 81; i++){
+/*	for(i = 0; i < 81; i++){
 		sqr1[i/9][i - 9*(i/9)] = su[i];
 	}
-
-	for(a = 1; a <= n; a++){
-		for(i = 0; i < 9; i++){
-			for(j = 0; j <9; j++){
-				sqr2[j][9-i-1] = sqr1[i][j];
+	if(n > 0){
+		for(a = 1; a <= n; a++){
+			for(i = 0; i < 9; i++){
+				for(j = 0; j <9; j++){
+					sqr2[j][9-i-1] = sqr1[i][j];
+				}
 			}
 		}
 	}
 	
 	for(i = 0; i < 81; i++){
 		su[i] = sqr2[i/9][i - 9*(i/9)];
+	}*/
+	n = n%4;
+	int New[81];
+	int i, j;
+	i = 0;
+	while(i < 81){
+		New[i] = 0;
+		i++;
+	}
+	if(n == 1){
+		for(i = 0; i <9; i++){
+			for(j = 0; j < 9; j++){
+				New[(9*i+j)+((8-j-i)+9*(j-i))]=su[9*i+j];
+			}
+		}
+	}else if(n == 2){
+		for(i = 0; i < 9; i++){
+			for(j = 0; j < 9; j++){
+				New[(9*i+j)+((8-i-j)+9*(8-i-j))]=su[9*i+j];
+			}
+		}
+	}else if(n == 3){
+		for(i = 0; i <9; i++){
+			for(j = 0;j <9; j++){
+				New[(9*i+j)+((0-j+i)+9*(8-j-i))]=su[9*i+j];
+			}
+		}
+	}else{
+		for(i = 0; i <81; i++){
+			New[i]=su[i];
+		}
+	}
+	i = 0;
+	while(i <81){
+		su[i] = New[i];
+		i++;
 	}
 }
 
