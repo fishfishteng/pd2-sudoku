@@ -31,14 +31,24 @@ void Sudoku::printOut(int *su){
 }
 
 void Sudoku::changeNum(int a, int b){
-	for(i = 0; i < 81; i++){
+		int i=0;
+			
+		while(i<=80){
+				
+			if(su[i]==a)
+				su[i]=b;
+			else if(su[i]==b)
+				su[i]=a;	
+			i++;
+		}
+	/*	for(i = 0; i < 81; i++){
 		if(su[i] == a){
 			su[i] = b;
 		}
 		else if(su[i] == b){
 			su[i] = a;
 		}else{}
-	}
+	}*/
 }
 
 void Sudoku::changeRow(int a, int b){
