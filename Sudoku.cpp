@@ -42,8 +42,16 @@ void Sudoku::changeNum(int a, int b){
 }
 
 void Sudoku::changeRow(int a, int b){
+	int change;
+	int i,j;
 
-	switch(a){
+		for(i=0;i<27;i++){
+		
+			change=su[27*a+i];
+			su[27*a+i]=su[27*b+i];
+			su[27*b+i]=change;
+		}
+/*	switch(a){
 		case 0: A = su;
 				break;
 		case 1: A = &su[27];
@@ -65,12 +73,24 @@ void Sudoku::changeRow(int a, int b){
 		temp[i] = A[i];
 		A[i] = B[i];
 		B[i] = temp[i];
-	}
+	}*/
 }
 
 void Sudoku::changeCol(int a, int b){
-
-	switch(a){
+		
+		int change;
+		int i,j;
+			
+		for(i=0;i<9;i++){
+			
+			for(j=0;j<3;j++){
+						
+				change=su[9*i+3*a+j];
+				su[9*i+3*a+j]=su[9*i+3*b+j];
+				su[9*i+3*b+j]=change;
+			}
+		}
+/*	switch(a){
 		case 0: A = su;
 				break;
 		case 1: A = &su[3];
@@ -101,7 +121,7 @@ void Sudoku::changeCol(int a, int b){
 		A[j] = B[j];
 		B[j] = temp[j];
 		j -= 2;
-	}
+	}*/
 }
 void Sudoku::rotate(int n){
 /*	for(i = 0; i < 81; i++){
@@ -159,7 +179,38 @@ void Sudoku::rotate(int n){
 }
 
 void Sudoku::flip(int n){
-	if(n == 0){
+	int i,j;
+	int New[81];
+		
+	if(n==1){
+		
+		for(i=0;i<9;i++){
+								
+			for(j=0;j<9;j++){
+							
+				New[9*i+j+8-2*j]=su[9*i+j];
+			}//vertically
+		}
+	}else{
+				
+		for(i=0;i<9;i++){
+						
+			for(j=0;j<9;j++){
+									
+				New[9*i+j+9*(8-2*i)]=su[9*i+j];
+			}//horizontally
+		}
+	}
+					
+	i=0;
+					
+	while(i<81){
+						
+		su[i]=New[i];
+		i++;
+	}
+							
+/*	if(n == 0){
 		for(i = 0; i < 81; i++){
 			sqr1[i/9][i - 9*(i/9)] = su[i];
 		}
@@ -188,7 +239,7 @@ void Sudoku::flip(int n){
 			su[i] = sqr2[i/9][i - 9*(i/9)];
 		}
 			
-	}
+	}*/
 }
 
 void Sudoku::transform(){
