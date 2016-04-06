@@ -12,7 +12,7 @@ class Sudoku{
 		void transform();
 		void change();
 		void printOut(int* su);
-		void fillIn(int(* Sudo)[9], int* Z, int zero, int a);
+		int fillIn(int(* Sudo)[9], int* Z, int zero, int a, int ans);
 /*		int* findZero(int* Sudo);
 		int* checkRow(int i, int* su, int* poss);
 		int* checkCol(int i, int* su, int* pos);
@@ -33,6 +33,7 @@ class Sudoku{
 		int* C;
 		int Map[81];
 		int pos[9];
+		int answer[9][9];
 //		int zerosite[];
 //		int zero;
 };
