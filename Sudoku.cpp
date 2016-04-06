@@ -286,6 +286,187 @@ void Sudoku::fillIn(int i, int* su, int* Pos){
 	Pos[j] = 0;
 }*/
 void Sudoku::solve(){
-	int poss[81][9] = {0};
-	for(i = 0; i < 81; i++)	
+	int I;
+	int J;
+	int K;
+
+	for(i = 0; i < 81; i++){
+		if(su[i] != 0){
+			I = 0;
+			J = 0;
+			K = 0;
+
+			for(j = 0; j < 9; j++){
+				if(su[i] == su[(i/9)*9+j]){
+					I++;
+					if(I > 1){
+						cout<<"0"<<endl;
+						exit(1);
+					}
+				}
+				if(su[i] == su[i%9+j*9]){
+					J++;
+					if(J > 1){
+						cout<<"0"<<endl;
+						exit(1);
+					}
+				}
+				if(su[i] == su[(i/27)*27+((i%9)/3)*3+j%3+j/3*9]){
+					K++;
+					if(K > 1){
+						cout<<"0"<<endl;
+						exit(1);
+					}
+				}
+			}
+		}
+	}
+	int Sudo[9][9];
+	for(i = 0; i < 9; i++){
+		for(j = 0; j < 9; j++){
+			Sudo[i][j] =su [9*i+j];
+		}
+	}
+
+	int zero = 0;
+	
+	for(i = 0; i < 81; i++){
+		if(su[i] == 0)
+			zero++;
+	}
+
+	int zerosite[zero];
+	int j = 0;
+
+
+	for(i = 0; i < 81; i++){
+		if(su[i] == 0){
+			zerosite[j] = i;
+			j++;
+		}
+	}
+/*	for(i = 0; i < zero; i++){
+		cout<<zerosite[i]<<" ";
+	}*/
+	int* Z;
+	Z = zerosite;
+	int a = 0;
+	fillIn(Sudo, Z, zero, a);
+//	cout<<"i="<<i<<endl<<"j="<<j<<endl;
+
+/*	for(i = 0; i < 81; i++){
+		cout<<i+1<<" ";
+		for(j = 0; j < 9; j++){
+			cout<<poss[i][j];
+		}
+			cout<<endl;
+	}*/
+	cout<<endl;
+	for(i = 0; i < 9; i++){
+		for(j = 0; j < 9; j++){
+			cout<<Sudo[i][j]<<" ";
+		}
+			if(j == 9)
+				cout<<endl;
+	}
 }
+void Sudoku::fillIn(int(* Sudo)[9], int* Z, int zero, int a){
+	int poss[81][9];
+	
+	for(i = 0; i < 81; i++){
+		for(j = 0; j < 9; j++){
+			poss[i][j] = j + 1;
+		}
+	}
+/*	for(i = 0; i < 9; i++){
+		for(j = 0; j < 9; j++){
+			cout<<poss[i][j]<<" ";
+		}
+			cout<<endl;
+	}*/
+	
+	for(i = 0; i < 9; i++){
+		for(j = 0; j < 9; j++){
+			if(Sudo[i][j] != 0)
+				for(k = 0; k < 9; k++){
+					poss[i*9+j][k] = 0;
+				}
+		}
+	}
+
+	for(i = 0; i < 9; i++){
+		for(j = 0; j < 9; j++){
+			for(k = 0; k < 9; k++){
+					if(Sudo[i][k] != 0)
+						poss[9*i+j][Sudo[i][k]-1] = 0;
+			}
+		}
+	}
+
+	for(i = 0; i < 9; i++){
+		for(j = 0; j < 9; j++){
+			for(k = 0; k < 9; k++){
+				if(Sudo[k][j] != 0)
+					poss[9*i+j][Sudo[k][j]-1] = 0;
+			}
+		}
+	}
+
+	for(i = 0; i < 9; i++){
+		for(j = 0; j < 9; j++){
+			for(k = 0; k < 3; k++){
+				for(l = 0; l < 3; l++){
+					if(Sudo[(i/3)*3+k][(j/3)*3+l] != 0)
+						poss[9*i+j][Sudo[(i/3)*3+k][(j/3)*3+l]-1] = 0;
+				}
+			}
+		}
+	}
+/*	for(i = 0; i < 9; i++){
+		for(j = 0; j < 9; j++){
+			if(Sudo[i][j] == 0)
+				break;
+		}
+		if(Sudo[i][j] == 0)
+			break;
+	}*/
+	while(a < zero){
+		for(k = 0; k < 9; k++){
+			i = Z[a]/9;
+			j = Z[a]%9;
+			if(poss[9*i+j][k] != 0){
+				Sudo[i][j] = poss[9*i+j][k];
+				poss[9*i+j][k] = 0;
+/*				cout<<endl;
+					for(i = 0; i < 9; i++){
+						for(j = 0; j < 9; j++){
+							cout<<Sudo[i][j]<<" ";
+						}
+							if(j == 9)
+								cout<<endl;
+					}
+	cout<<"zero="<<zero<<endl<<"a="<<a;*/
+				a++;
+				if(a == zero){
+					cout<<"1"<<endl;
+						for(i = 0; i < 9; i++){
+							for(j = 0; j < 9; j++){
+								cout<<Sudo[i][j]<<" ";
+							}
+								if(j == 9)
+									cout<<endl;
+						}
+					exit(0);
+				}
+
+				fillIn(Sudo, Z, zero, a);
+				Sudo[i][j] = 0;
+				a--;
+				k = 0;
+			}
+		}
+		return;
+	}
+	return;
+}
+
