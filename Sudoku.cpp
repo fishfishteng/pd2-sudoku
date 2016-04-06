@@ -192,7 +192,13 @@ void Sudoku::flip(int n){
 }
 
 void Sudoku::transform(){
-	change();
+	//change();
+	srand(time(NULL));
+	changeNum(rand()%9+1, rand()%9+1);
+	changeRow(rand()%3, rand()%3);
+	changeCol(rand()%3, rand()%3);
+	rotate(rand()%101);
+	flip(rand()%2);
 	printOut(su);
 }
 
