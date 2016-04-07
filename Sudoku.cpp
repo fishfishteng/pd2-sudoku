@@ -613,7 +613,7 @@ int Sudoku::fillIn(int(* Sudo)[9], int* Z, int zero, int a, int ans){
 				k = 0;
 			}
 		}
-		if(ans == 1&&k == 9&&check(poss)){
+/*		if(ans == 1&&k == 9&&check(poss)){
 			cout<<"1"<<endl;
 			for(i = 0; i < 9; i++){
 				for(j = 0; j < 9; j++){
@@ -623,7 +623,7 @@ int Sudoku::fillIn(int(* Sudo)[9], int* Z, int zero, int a, int ans){
 						cout<<endl;
 			}
 			exit(0);
-		}
+		}*/
 		if(a == 0&&k == 9&&ans == 1){
 			cout<<"1"<<endl;
 			for(i = 0; i < 9; i++){
@@ -643,7 +643,7 @@ int Sudoku::fillIn(int(* Sudo)[9], int* Z, int zero, int a, int ans){
 	}
 	return ans;
 }
-int Sudoku::check(int(* poss)[9]){
+/*int Sudoku::check(int(* poss)[9]){
 	int a = 0;
 	for(i = 0; i < 9; i++){
 		for(j - 0; j < 9; j++){
@@ -655,4 +655,4 @@ int Sudoku::check(int(* poss)[9]){
 		return 1;
 	else
 		return 0;
-}
+}*/
