@@ -624,7 +624,7 @@ int Sudoku::fillIn(int(* Sudo)[9], int* Z, int zero, int a, int ans){
 			}
 			exit(0);
 		}*/
-		if(a == 0&&k == 9&&ans == 1){
+/*		if(a == zero-1&&k == 9&&ans == 1){
 			cout<<"1"<<endl;
 			for(i = 0; i < 9; i++){
 				for(j = 0; j < 9; j++){
@@ -634,7 +634,7 @@ int Sudoku::fillIn(int(* Sudo)[9], int* Z, int zero, int a, int ans){
 						cout<<endl;
 			}
 			exit(0);
-		}
+		}*/
 		if(a == 0&&k == 9&&ans == 0){
 			cout<<"0"<<endl;
 			exit(0);
