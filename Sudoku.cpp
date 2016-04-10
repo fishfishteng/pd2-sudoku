@@ -31,7 +31,7 @@ void Sudoku::printOut(int *su){
 }
 
 void Sudoku::changeNum(int a, int b){
-		int i=0;
+	/*	int i=0;
 			
 		while(i<=80){
 				
@@ -40,15 +40,15 @@ void Sudoku::changeNum(int a, int b){
 			else if(su[i]==b)
 				su[i]=a;	
 			i++;
-		}
-	/*	for(i = 0; i < 81; i++){
+		}*/
+		for(i = 0; i < 81; i++){
 		if(su[i] == a){
 			su[i] = b;
 		}
 		else if(su[i] == b){
 			su[i] = a;
 		}else{}
-	}*/
+	}
 }
 
 void Sudoku::changeRow(int a, int b){
@@ -283,14 +283,14 @@ void Sudoku::transform(){
 	printOut(su);
 }
 
-void Sudoku::change(){
+/*void Sudoku::change(){
 	srand(time(NULL));
 	changeNum(rand()%9+1, rand()%9+1);
 	changeRow(rand()%3, rand()%3);
 	changeCol(rand()%3, rand()%3);
 	rotate(rand()%101);
 	flip(rand()%2);
-}
+}*/
 /*
 void Sudoku::solve(){
 	int pos[9] = {0};
@@ -468,7 +468,6 @@ void Sudoku::solve(){
 		}
 		exit(0);
 	}
-//	cout<<"zero="<<zero<<endl;
 	int zerosite[zero];
 	int j = 0;
 
@@ -479,46 +478,20 @@ void Sudoku::solve(){
 			j++;
 		}
 	}
-/*	for(i = 0; i < zero; i++){
-		cout<<zerosite[i]<<" ";
-	}*/
 	int* Z;
 	Z = zerosite;
 	int a = 0;
 	int ans = 0;
 	fillIn(Sudo, Z, zero, a, ans);
-//	cout<<"i="<<i<<endl<<"j="<<j<<endl;
 
-/*	for(i = 0; i < 81; i++){
-		cout<<i+1<<" ";
-		for(j = 0; j < 9; j++){
-			cout<<poss[i][j];
-		}
-			cout<<endl;
-	}*/
-	cout<<endl;
-	for(i = 0; i < 9; i++){
-		for(j = 0; j < 9; j++){
-			cout<<Sudo[i][j]<<" ";
-		}
-			if(j == 9)
-				cout<<endl;
-	}
 }
 int Sudoku::fillIn(int(* Sudo)[9], int* Z, int zero, int a, int ans){
 	int poss[81][9];
-//	cout<<"a="<<a<<endl<<"ans="<<ans<<endl;	
 	for(i = 0; i < 81; i++){
 		for(j = 0; j < 9; j++){
 			poss[i][j] = j + 1;
 		}
 	}
-/*	for(i = 0; i < 9; i++){
-		for(j = 0; j < 9; j++){
-			cout<<poss[i][j]<<" ";
-		}
-			cout<<endl;
-	}*/
 	
 	for(i = 0; i < 9; i++){
 		for(j = 0; j < 9; j++){
@@ -557,14 +530,6 @@ int Sudoku::fillIn(int(* Sudo)[9], int* Z, int zero, int a, int ans){
 			}
 		}
 	}
-/*	for(i = 0; i < 9; i++){
-		for(j = 0; j < 9; j++){
-			if(Sudo[i][j] == 0)
-				break;
-		}
-		if(Sudo[i][j] == 0)
-			break;
-	}*/
 	while(a < zero){
 		for(k = 0; k < 9; k++){
 			i = Z[a]/9;
@@ -572,15 +537,6 @@ int Sudoku::fillIn(int(* Sudo)[9], int* Z, int zero, int a, int ans){
 			if(poss[9*i+j][k] != 0){
 				Sudo[i][j] = poss[9*i+j][k];
 				poss[9*i+j][k] = 0;
-/*				cout<<endl;
-					for(i = 0; i < 9; i++){
-						for(j = 0; j < 9; j++){
-							cout<<Sudo[i][j]<<" ";
-						}
-							if(j == 9)
-								cout<<endl;
-					}
-	cout<<"zero="<<zero<<endl<<"a="<<a;*/
 				a++;
 				if(a == zero){
 					ans++;
@@ -591,20 +547,11 @@ int Sudoku::fillIn(int(* Sudo)[9], int* Z, int zero, int a, int ans){
 							}
 						}
 					}
-					a--;
+						a--;
 					if(ans == 2){
 						cout<<"2"<<endl;
 						exit(0);
 					}
-					/*cout<<"1"<<endl;
-						for(i = 0; i < 9; i++){
-							for(j = 0; j < 9; j++){
-								cout<<Sudo[i][j]<<" ";
-							}
-								if(j == 9)
-									cout<<endl;
-						}
-					exit(0);*/
 				}
 
 				ans = fillIn(Sudo, Z, zero, a, ans);
@@ -613,7 +560,7 @@ int Sudoku::fillIn(int(* Sudo)[9], int* Z, int zero, int a, int ans){
 				k = 0;
 			}
 		}
-/*		if(ans == 1&&k == 9&&check(poss)){
+		if(a == 0&&ans == 1&&k == 9){
 			cout<<"1"<<endl;
 			for(i = 0; i < 9; i++){
 				for(j = 0; j < 9; j++){
@@ -623,25 +570,17 @@ int Sudoku::fillIn(int(* Sudo)[9], int* Z, int zero, int a, int ans){
 						cout<<endl;
 			}
 			exit(0);
-		}*/
-/*		if(a == zero-1&&k == 9&&ans == 1){
-			cout<<"1"<<endl;
-			for(i = 0; i < 9; i++){
-				for(j = 0; j < 9; j++){
-					cout<<answer[i][j]<<" ";
-				}
-					if(j == 9)
-						cout<<endl;
-			}
-			exit(0);
-		}*/
+		}
 		if(a == 0&&k == 9&&ans == 0){
 			cout<<"0"<<endl;
 			exit(0);
 		}
 		return ans;
 	}
-	return ans;
+		/*if(a == zero&&k == 9&&ans == 0){
+			cout<<"0"<<endl;
+			exit(0);
+		}*/
 }
 /*int Sudoku::check(int(* poss)[9]){
 	int a = 0;
